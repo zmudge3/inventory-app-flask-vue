@@ -7,12 +7,20 @@
           v-model="name"
           type="text">
         <br><br>
-        <button
-          type="button"
-          class="btn btn-primary btn-sm"
-          @click="addContainer">
-          Submit
-        </button>
+        <div class="btn-group" role="group">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            @click="addContainer">
+            Submit
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            @click="goBack">
+            Cancel
+          </button>
+        </div>
       </div>
     </form>
   </div>
@@ -42,6 +50,9 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    goBack() {
+      this.$router.push({ path: '/' });
     },
   },
 };
