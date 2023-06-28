@@ -3,6 +3,13 @@
     <div class="row">
       <div class="col-sm-10">
         <h1>Containers</h1>
+        <br>
+        <button
+          type="button"
+          class="btn btn-success"
+          @click="handleNewButton">
+          New Container
+        </button>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -47,6 +54,9 @@ export default {
         .catch((error) => {
           console.error(error);
         });
+    },
+    handleNewButton() {
+      this.$router.push({ path: '/new' });
     },
   },
   created() {
