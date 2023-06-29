@@ -75,6 +75,18 @@ def new_container():
     response_object['message'] = 'Container added'
     return jsonify(response_object)
 
+@app.route('/<container_id>/new_item', methods=['POST'])
+def new_item(container_id):
+    response_object = {'status': 'success'}
+    post_data = request.get_json()
+    new_item_id = uuid.uuid4().hex
+    ITEMS[new_item_id] = {
+        'name': post_data.get('name'),
+        'container_id': container_id,
+    }
+    CONTAINERS[container_id]['items'].append(new_item_id)
+    response_object['message'] = 'Item added'
+    return jsonify(response_object)
 
 if __name__ == '__main__':
     app.run()
