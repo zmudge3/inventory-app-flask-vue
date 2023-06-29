@@ -46,6 +46,7 @@ export default {
           if(res.status === 200) {
             this.$emit('showContainerList', true);
             this.$emit('showContainerForm', false);
+            this.$parent.handleMessage('Container created!');
             this.$parent.getContainers();
           }
         })

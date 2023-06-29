@@ -11,6 +11,7 @@
       <div class="col-sm-10">
         <h1>Containers</h1>
         <br>
+        <alert :message=message v-if="showMessage"></alert>
         <button
           type="button"
           class="btn btn-success"
@@ -44,6 +45,7 @@
 
 <script>
 import axios from 'axios';
+import Alert from './Alert.vue';
 import ContainerForm from './ContainerForm.vue';
 
 export default {
@@ -52,9 +54,12 @@ export default {
       containers: [],
       showContainerForm: false,
       showContainerList: true,
+      message: '',
+      showMessage: false,
     };
   },
   components: {
+    alert: Alert,
     containerForm: ContainerForm,
   },
   methods: {
@@ -72,6 +77,13 @@ export default {
       this.showContainerForm = true;
       this.showContainerList = false;
     },
+    handleMessage(message) {
+      this.showMessage = true;
+      this.message = message;
+      setTimeout(() => {
+        this.showMessage = false;
+      }, 5000);
+    }
   },
   created() {
     this.getContainers();
