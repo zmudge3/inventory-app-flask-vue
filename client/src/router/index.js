@@ -12,11 +12,6 @@ const router = createRouter({
       component: Containers,
     },
     {
-      path: '/new',
-      name: 'ContainerForm',
-      component: ContainerForm,
-    },
-    {
       path: '/ping',
       name: 'ping',
       component: Ping

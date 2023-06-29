@@ -1,5 +1,12 @@
 <template>
   <div class="container">
+    <containerForm
+      v-if="showContainerForm"
+      @showContainerForm="showContainerForm = $event"
+      @showContainerList="showContainerList = $event">
+    </containerForm>
+  </div>
+  <div class="container" v-if="showContainerList">
     <div class="row">
       <div class="col-sm-10">
         <h1>Containers</h1>
@@ -37,12 +44,18 @@
 
 <script>
 import axios from 'axios';
+import ContainerForm from './ContainerForm.vue';
 
 export default {
   data() {
     return {
       containers: [],
+      showContainerForm: false,
+      showContainerList: true,
     };
+  },
+  components: {
+    containerForm: ContainerForm,
   },
   methods: {
     getContainers() {
@@ -56,7 +69,8 @@ export default {
         });
     },
     handleNewButton() {
-      this.$router.push({ path: '/new' });
+      this.showContainerForm = true;
+      this.showContainerList = false;
     },
   },
   created() {

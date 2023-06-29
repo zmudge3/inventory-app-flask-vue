@@ -44,7 +44,9 @@ export default {
       axios.post(path, payload)
         .then((res) => {
           if(res.status === 200) {
-            this.$router.push({ path: '/' });
+            this.$emit('showContainerList', true);
+            this.$emit('showContainerForm', false);
+            this.$parent.getContainers();
           }
         })
         .catch((error) => {
@@ -52,7 +54,8 @@ export default {
         });
     },
     goBack() {
-      this.$router.push({ path: '/' });
+      this.$emit('showContainerList', true);
+      this.$emit('showContainerForm', false);
     },
   },
 };
