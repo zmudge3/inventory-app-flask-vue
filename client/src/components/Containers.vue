@@ -90,7 +90,7 @@ export default {
       }, 5000);
     },
     handleViewButton(containerID) {
-      this.$router.push({name: 'ContainerItems', params: {containerID: containerID}})
+      this.$router.push({name: 'ContainerItems', params: {containerID: containerID}});
     },
   },
   created() {

@@ -2,7 +2,7 @@
   <div class="container">
     <form>
       <div class="mb-3">
-        <label class="">Container Name</label><br>
+        <label>Container Name</label><br>
         <input
           v-model="name"
           type="text">
