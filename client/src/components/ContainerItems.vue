@@ -1,9 +1,18 @@
 <template>
   <div class="container">
+    <itemForm
+      :containerID=containerID
+      v-if="showItemForm"
+      @showItemForm="showItemForm = $event"
+      @showContainerItems="showContainerItems = $event">
+    </itemForm>
+  </div>
+  <div class="container" v-if="showContainerItems">
     <div class="row">
       <div class="col-sm-10">
         <h2>{{ name }}: Items</h2>
         <br>
+        <alert :message=message v-if="showMessage"></alert>
         <button
           type="button"
           class="btn btn-success"
@@ -35,14 +44,24 @@
 
 <script>
 import axios from 'axios';
+import Alert from './Alert.vue';
+import ItemForm from './ItemForm.vue';
 
 export default {
   data() {
     return {
       name: '',
       items: [],
-      containerID: null
+      containerID: null,
+      showContainerItems: true,
+      showItemForm: false,
+      message: '',
+      showMessage: false,
     };
+  },
+  components: {
+    alert: Alert,
+    itemForm: ItemForm,
   },
   methods: {
     getItems() {
@@ -55,6 +74,17 @@ export default {
         .catch((error) => {
           console.error(error);
         });
+    },
+    handleNewButton() {
+      this.showItemForm = true;
+      this.showContainerItems = false;
+    },
+    handleMessage(message) {
+      this.showMessage = true;
+      this.message = message;
+      setTimeout(() => {
+        this.showMessage = false;
+      }, 5000);
     },
   },
   created() {
