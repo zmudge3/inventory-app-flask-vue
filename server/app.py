@@ -75,6 +75,16 @@ def new_container():
     response_object['message'] = 'Container added'
     return jsonify(response_object)
 
+@app.route('/<container_id>', methods=['GET'])
+def view_container(container_id):
+    container = CONTAINERS[container_id]
+    items = [ITEMS[item_id] for item_id in container['items']]
+    return jsonify({
+        'status': 'success',
+        'name': container['name'],
+        'items': items,
+    })
+
 @app.route('/<container_id>/new_item', methods=['POST'])
 def new_item(container_id):
     response_object = {'status': 'success'}

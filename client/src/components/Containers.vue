@@ -32,7 +32,12 @@
               <td>{{ container.items.length }}</td>
               <td>
                 <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-primary btn-sm">View</button>
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    @click="handleViewButton(index)">
+                    View
+                </button>
                 </div>
               </td>
             </tr>
@@ -83,7 +88,10 @@ export default {
       setTimeout(() => {
         this.showMessage = false;
       }, 5000);
-    }
+    },
+    handleViewButton(containerID) {
+      this.$router.push({name: 'ContainerItems', params: {containerID: containerID}})
+    },
   },
   created() {
     this.getContainers();
