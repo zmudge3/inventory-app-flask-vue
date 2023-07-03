@@ -1,13 +1,52 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 import uuid
 
 # instantiate the app
+db = SQLAlchemy()
 app = Flask(__name__)
 app.config.from_object(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+db.init_app(app)
 
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
+
+class Container(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    items = db.relationship('Item', backref='container')
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'items': [item.serialize for item in self.items],
+        }
+
+    # def __repr__(self):
+    #     return f'<Container "{self.id}, {self.name}">'
+
+class Item(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    container_id = db.Column(db.Integer, db.ForeignKey('container.id'))
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+        }
+
+    # def __repr__(self):
+    #     return f'<Item "{self.id}, {self.name}">'
+
 
 CONTAINERS = {
     'd9cb84d4c2384b65aaa31f8be7aedfa8': {
@@ -58,10 +97,8 @@ def ping_pong():
 
 @app.route('/containers', methods=['GET'])
 def all_containers():
-    return jsonify({
-        'status': 'success',
-        'containers': CONTAINERS,
-    })
+    containers = Container.query.order_by(Container.date_created).all()
+    return jsonify({'containers': [container.serialize for container in containers]})
 
 @app.route('/new', methods=['POST'])
 def new_container():
