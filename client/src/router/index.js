@@ -13,7 +13,7 @@ const router = createRouter({
       component: Containers,
     },
     {
-      path: '/:containerID',
+      path: '/containers/:containerID',
       name: 'ContainerItems',
       component: ContainerItems,
     },

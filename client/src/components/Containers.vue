@@ -27,7 +27,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(container, index) in containers" :key="index">
+            <tr v-for="container in containers">
               <td>{{ container.name }}</td>
               <td>{{ container.items.length }}</td>
               <td>
@@ -35,7 +35,7 @@
                   <button
                     type="button"
                     class="btn btn-primary btn-sm"
-                    @click="handleViewButton(index)">
+                    @click="handleViewButton(container.id)">
                     View
                 </button>
                 </div>
