@@ -29,11 +29,6 @@
           <tbody>
             <tr v-for="item in items">
               <td>{{ item.name }}</td>
-              <td>
-                <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-primary btn-sm">View</button>
-                </div>
-              </td>
             </tr>
           </tbody>
         </table>
