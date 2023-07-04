@@ -48,11 +48,6 @@ class Item(db.Model):
         return f"<Item id={self.id}>"
 
 
-# sanity check route
-@app.route('/ping', methods=['GET'])
-def ping_pong():
-    return jsonify('pong!')
-
 @app.route('/containers', methods=['GET'])
 def all_containers():
     containers = Container.query.order_by(Container.date_created).all()
