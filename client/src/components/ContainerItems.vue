@@ -27,7 +27,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item, index) in items" :key="index">
+            <tr v-for="item in items">
               <td>{{ item.name }}</td>
               <td>
                 <div class="btn-group" role="group">
@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     getItems() {
-      const path = `http://localhost:5001/${this.containerID}`;
+      const path = `http://localhost:5001/containers/${this.containerID}`;
       axios.get(path)
         .then((res) => {
           this.name = res.data.name;
