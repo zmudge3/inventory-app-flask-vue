@@ -29,7 +29,7 @@ class Container(db.Model):
         }
 
     def __repr__(self):
-        return f"<Container id={self.id}>"
+        return f"<Container id={self.id}, name={self.name}>"
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -45,7 +45,7 @@ class Item(db.Model):
         }
 
     def __repr__(self):
-        return f"<Item id={self.id}>"
+        return f"<Item id={self.id}, name={self.name}>"
 
 
 @app.route('/containers', methods=['GET'])
