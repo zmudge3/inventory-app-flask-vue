@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <itemForm
+    <itemNewForm
       :containerID=containerID
-      v-if="showItemForm"
-      @showItemForm="showItemForm = $event"
+      v-if="showItemNewForm"
+      @showItemNewForm="showItemNewForm = $event"
       @showContainerItems="showContainerItems = $event">
-    </itemForm>
+    </itemNewForm>
   </div>
   <div class="container">
     <itemEditForm
@@ -73,7 +73,7 @@
 <script>
 import axios from 'axios';
 import Alert from './Alert.vue';
-import ItemForm from './ItemForm.vue';
+import ItemNewForm from './ItemNewForm.vue';
 import ItemEditForm from './ItemEditForm.vue'
 
 export default {
@@ -84,7 +84,7 @@ export default {
       containerID: null,
       itemForEdit: null,
       showContainerItems: true,
-      showItemForm: false,
+      showItemNewForm: false,
       showItemEditForm: false,
       message: '',
       showMessage: false,
@@ -93,7 +93,7 @@ export default {
   },
   components: {
     alert: Alert,
-    itemForm: ItemForm,
+    itemNewForm: ItemNewForm,
     itemEditForm: ItemEditForm,
   },
   methods: {
@@ -110,7 +110,7 @@ export default {
         });
     },
     handleNewButton() {
-      this.showItemForm = true;
+      this.showItemNewForm = true;
       this.showContainerItems = false;
       this.showItemEditForm = false;
     },
@@ -142,7 +142,7 @@ export default {
     handleEditButton(item) {
       this.showItemEditForm = true;
       this.showContainerItems = false;
-      this.showItemForm = false;
+      this.showItemNewForm = false;
       this.itemForEdit = item;
     },
   },
