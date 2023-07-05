@@ -34,6 +34,7 @@ class Container(db.Model):
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
+    quantity = db.Column(db.Integer, default=1)
     container_id = db.Column(db.Integer, db.ForeignKey('container.id'))
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -42,6 +43,7 @@ class Item(db.Model):
         return {
             'id': self.id,
             'name': self.name,
+            'quantity': self.quantity,
         }
 
     def __repr__(self):

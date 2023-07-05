@@ -30,12 +30,14 @@
           <thead>
             <tr>
               <th scope="col">Name</th>
+              <th scope="col">Quantity</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="item in items">
               <td>{{ item.name }}</td>
+              <td>{{ item.quantity }}</td>
             </tr>
           </tbody>
         </table>

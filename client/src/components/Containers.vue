@@ -36,7 +36,7 @@
                     type="button"
                     class="btn btn-primary btn-sm"
                     @click="handleViewButton(container.id)">
-                    View
+                    View Items
                 </button>
                 </div>
               </td>
