@@ -46,7 +46,7 @@ export default {
         .then((res) => {
           if(res.status === 200) {
             this.$emit('showContainerItems', true);
-            this.$emit('showItemForm', false);
+            this.$emit('showItemNewForm', false);
             this.$parent.handleMessage('Item created!');
             this.$parent.getItems();
           }
@@ -57,7 +57,7 @@ export default {
     },
     goBack() {
       this.$emit('showContainerItems', true);
-      this.$emit('showItemForm', false);
+      this.$emit('showItemNewForm', false);
     },
   },
 };

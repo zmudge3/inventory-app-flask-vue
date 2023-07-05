@@ -1,11 +1,19 @@
 <template>
   <div class="container">
-    <itemForm
+    <itemNewForm
       :containerID=containerID
-      v-if="showItemForm"
-      @showItemForm="showItemForm = $event"
+      v-if="showItemNewForm"
+      @showItemNewForm="showItemNewForm = $event"
       @showContainerItems="showContainerItems = $event">
-    </itemForm>
+    </itemNewForm>
+  </div>
+  <div class="container">
+    <itemEditForm
+      :itemForEdit="itemForEdit"
+      v-if="showItemEditForm"
+      @showItemEditForm="showItemEditForm = $event"
+      @showContainerItems="showContainerItems = $event">
+    </itemEditForm>
   </div>
   <div class="container" v-if="showContainerItems && loaded">
     <button
@@ -38,6 +46,22 @@
             <tr v-for="item in items">
               <td>{{ item.name }}</td>
               <td>{{ item.quantity }}</td>
+              <td>
+                <div class="btn-group" role="group">
+                  <button
+                    type="button"
+                    class="btn btn-warning btn-sm"
+                    @click="handleEditButton(item)">
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-sm"
+                    @click="handleDeleteButton(item)">
+                    Delete
+                  </button>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -49,7 +73,8 @@
 <script>
 import axios from 'axios';
 import Alert from './Alert.vue';
-import ItemForm from './ItemForm.vue';
+import ItemNewForm from './ItemNewForm.vue';
+import ItemEditForm from './ItemEditForm.vue'
 
 export default {
   data() {
@@ -57,8 +82,10 @@ export default {
       name: '',
       items: [],
       containerID: null,
+      itemForEdit: null,
       showContainerItems: true,
-      showItemForm: false,
+      showItemNewForm: false,
+      showItemEditForm: false,
       message: '',
       showMessage: false,
       loaded: false,
@@ -66,7 +93,8 @@ export default {
   },
   components: {
     alert: Alert,
-    itemForm: ItemForm,
+    itemNewForm: ItemNewForm,
+    itemEditForm: ItemEditForm,
   },
   methods: {
     getItems() {
@@ -82,8 +110,9 @@ export default {
         });
     },
     handleNewButton() {
-      this.showItemForm = true;
+      this.showItemNewForm = true;
       this.showContainerItems = false;
+      this.showItemEditForm = false;
     },
     handleMessage(message) {
       this.showMessage = true;
@@ -94,6 +123,27 @@ export default {
     },
     handleBackButton() {
       this.$router.go(-1);
+    },
+    handleDeleteButton(item) {
+      this.removeItem(item.id);
+    },
+    removeItem(itemID) {
+      const path = `http://localhost:5001/items/${itemID}`;
+      axios.delete(path)
+        .then(() => {
+          this.getItems();
+          this.handleMessage('Item deleted');
+        })
+        .catch((error) => {
+          console.error(error);
+          this.getItems();
+        });
+    },
+    handleEditButton(item) {
+      this.showItemEditForm = true;
+      this.showContainerItems = false;
+      this.showItemNewForm = false;
+      this.itemForEdit = item;
     },
   },
   created() {
