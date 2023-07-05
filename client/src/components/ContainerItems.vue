@@ -7,6 +7,14 @@
       @showContainerItems="showContainerItems = $event">
     </itemForm>
   </div>
+  <div class="container">
+    <itemEditForm
+      :itemForEdit="itemForEdit"
+      v-if="showItemEditForm"
+      @showItemEditForm="showItemEditForm = $event"
+      @showContainerItems="showContainerItems = $event">
+    </itemEditForm>
+  </div>
   <div class="container" v-if="showContainerItems && loaded">
     <button
       type="button"
@@ -42,8 +50,14 @@
                 <div class="btn-group" role="group">
                   <button
                     type="button"
+                    class="btn btn-warning btn-sm"
+                    @click="handleEditButton(item)">
+                    Edit
+                  </button>
+                  <button
+                    type="button"
                     class="btn btn-danger btn-sm"
-                    @click="handleDeleteItem(item)">
+                    @click="handleDeleteButton(item)">
                     Delete
                   </button>
                 </div>
@@ -60,6 +74,7 @@
 import axios from 'axios';
 import Alert from './Alert.vue';
 import ItemForm from './ItemForm.vue';
+import ItemEditForm from './ItemEditForm.vue'
 
 export default {
   data() {
@@ -67,8 +82,10 @@ export default {
       name: '',
       items: [],
       containerID: null,
+      itemForEdit: null,
       showContainerItems: true,
       showItemForm: false,
+      showItemEditForm: false,
       message: '',
       showMessage: false,
       loaded: false,
@@ -77,6 +94,7 @@ export default {
   components: {
     alert: Alert,
     itemForm: ItemForm,
+    itemEditForm: ItemEditForm,
   },
   methods: {
     getItems() {
@@ -94,6 +112,7 @@ export default {
     handleNewButton() {
       this.showItemForm = true;
       this.showContainerItems = false;
+      this.showItemEditForm = false;
     },
     handleMessage(message) {
       this.showMessage = true;
@@ -105,11 +124,11 @@ export default {
     handleBackButton() {
       this.$router.go(-1);
     },
-    handleDeleteItem(item) {
+    handleDeleteButton(item) {
       this.removeItem(item.id);
     },
     removeItem(itemID) {
-      const path = `http://localhost:5001/items/${itemID}/delete`;
+      const path = `http://localhost:5001/items/${itemID}`;
       axios.delete(path)
         .then(() => {
           this.getItems();
@@ -119,6 +138,12 @@ export default {
           console.error(error);
           this.getItems();
         });
+    },
+    handleEditButton(item) {
+      this.showItemEditForm = true;
+      this.showContainerItems = false;
+      this.showItemForm = false;
+      this.itemForEdit = item;
     },
   },
   created() {
