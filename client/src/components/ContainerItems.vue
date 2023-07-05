@@ -7,7 +7,7 @@
       @showContainerItems="showContainerItems = $event">
     </itemForm>
   </div>
-  <div class="container" v-if="showContainerItems">
+  <div class="container" v-if="showContainerItems && loaded">
     <button
       type="button"
       class="btn btn-outline-primary"
@@ -59,6 +59,7 @@ export default {
       showItemForm: false,
       message: '',
       showMessage: false,
+      loaded: false,
     };
   },
   components: {
@@ -72,6 +73,7 @@ export default {
         .then((res) => {
           this.name = res.data.name;
           this.items = res.data.items;
+          this.loaded = true;
         })
         .catch((error) => {
           console.error(error);

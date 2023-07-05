@@ -6,7 +6,7 @@
       @showContainerList="showContainerList = $event">
     </containerForm>
   </div>
-  <div class="container" v-if="showContainerList">
+  <div class="container" v-if="showContainerList && loaded">
     <div class="row">
       <div class="col-sm-10">
         <h1>Containers</h1>
@@ -61,6 +61,7 @@ export default {
       showContainerList: true,
       message: '',
       showMessage: false,
+      loaded: false,
     };
   },
   components: {
@@ -73,6 +74,7 @@ export default {
       axios.get(path)
         .then((res) => {
           this.containers = res.data.containers;
+          this.loaded = true;
         })
         .catch((error) => {
           console.error(error);
