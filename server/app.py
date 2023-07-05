@@ -81,5 +81,14 @@ def new_item(container_id):
     response_object = {'message': 'Item added'}
     return jsonify(response_object)
 
+@app.route('/items/<item_id>/delete', methods=['DELETE'])
+def delete_item(item_id):
+    item_to_delete = Item.query.get_or_404(item_id)
+    db.session.delete(item_to_delete)
+    db.session.commit()
+
+    response_object = {'message': 'Item deleted'}
+    return jsonify(response_object)
+
 if __name__ == '__main__':
     app.run()

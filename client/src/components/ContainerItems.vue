@@ -38,6 +38,16 @@
             <tr v-for="item in items">
               <td>{{ item.name }}</td>
               <td>{{ item.quantity }}</td>
+              <td>
+                <div class="btn-group" role="group">
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-sm"
+                    @click="handleDeleteItem(item)">
+                    Delete
+                  </button>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -94,6 +104,21 @@ export default {
     },
     handleBackButton() {
       this.$router.go(-1);
+    },
+    handleDeleteItem(item) {
+      this.removeItem(item.id);
+    },
+    removeItem(itemID) {
+      const path = `http://localhost:5001/items/${itemID}/delete`;
+      axios.delete(path)
+        .then(() => {
+          this.getItems();
+          this.handleMessage('Item deleted');
+        })
+        .catch((error) => {
+          console.error(error);
+          this.getItems();
+        });
     },
   },
   created() {
