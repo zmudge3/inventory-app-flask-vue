@@ -8,6 +8,13 @@
     </itemForm>
   </div>
   <div class="container" v-if="showContainerItems">
+    <button
+      type="button"
+      class="btn btn-outline-primary"
+      @click="handleBackButton">
+      <i class="fa-solid fa-arrow-left"></i> Back
+    </button>
+    <br><br>
     <div class="row">
       <div class="col-sm-10">
         <h2>{{ name }}: Items</h2>
@@ -80,6 +87,9 @@ export default {
       setTimeout(() => {
         this.showMessage = false;
       }, 5000);
+    },
+    handleBackButton() {
+      this.$router.go(-1);
     },
   },
   created() {
