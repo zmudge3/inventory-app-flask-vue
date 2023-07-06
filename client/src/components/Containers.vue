@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     getContainers() {
-      const path = 'http://localhost:5001/containers';
+      const path = '/containers';
       axios.get(path)
         .then((res) => {
           this.containers = res.data.containers;
