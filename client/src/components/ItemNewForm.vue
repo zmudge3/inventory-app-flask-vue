@@ -6,6 +6,11 @@
         <input
           v-model="name"
           type="text">
+        <br>
+        <label>Quantity</label><br>
+        <input
+          v-model="quantity"
+          type="text">
         <br><br>
         <div class="btn-group" role="group">
           <button
@@ -33,6 +38,7 @@ export default {
   data() {
     return {
       name: "",
+      quantity: "1",
     };
   },
   props: ['containerID'],
@@ -41,6 +47,7 @@ export default {
       const path = `http://localhost:5001/containers/${this.containerID}/new_item`;
       const payload = {
         name: this.name,
+        quantity: this.quantity,
       };
       axios.post(path, payload)
         .then((res) => {

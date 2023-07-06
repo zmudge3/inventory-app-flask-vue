@@ -74,7 +74,10 @@ def view_container(container_id):
 def new_item(container_id):
     post_data = request.get_json()
     container = Container.query.get_or_404(container_id)
-    new_item = Item(name=post_data.get('name'), container=container)
+    new_item = Item(
+        name=post_data.get('name'),
+        quantity=post_data.get('quantity'),
+        container=container)
     db.session.add(new_item)
     db.session.commit()
  
