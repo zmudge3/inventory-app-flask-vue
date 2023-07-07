@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <containerForm
-      v-if="showContainerForm"
-      @showContainerForm="showContainerForm = $event"
+    <containerNewForm
+      v-if="showContainerNewForm"
+      @showContainerNewForm="showContainerNewForm = $event"
       @showContainerList="showContainerList = $event">
-    </containerForm>
+    </containerNewForm>
   </div>
   <div class="container" v-if="showContainerList && loaded">
     <div class="row">
@@ -51,13 +51,13 @@
 <script>
 import axios from 'axios';
 import Alert from './Alert.vue';
-import ContainerForm from './ContainerForm.vue';
+import ContainerNewForm from './ContainerNewForm.vue';
 
 export default {
   data() {
     return {
       containers: [],
-      showContainerForm: false,
+      showContainerNewForm: false,
       showContainerList: true,
       message: '',
       showMessage: false,
@@ -66,7 +66,7 @@ export default {
   },
   components: {
     alert: Alert,
-    containerForm: ContainerForm,
+    containerNewForm: ContainerNewForm,
   },
   methods: {
     getContainers() {
@@ -81,7 +81,7 @@ export default {
         });
     },
     handleNewButton() {
-      this.showContainerForm = true;
+      this.showContainerNewForm = true;
       this.showContainerList = false;
     },
     handleMessage(message) {
