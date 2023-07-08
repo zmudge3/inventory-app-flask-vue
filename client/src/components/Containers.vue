@@ -127,7 +127,7 @@ export default {
       this.removeContainer(containerID);
     },
     removeContainer(containerID) {
-      const path = `http://localhost:5001/containers/${containerID}`;
+      const path = `/containers/${containerID}`;
       axios.delete(path)
         .then(() => {
           this.getContainers();
