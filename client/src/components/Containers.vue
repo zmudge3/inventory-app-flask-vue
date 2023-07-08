@@ -1,10 +1,18 @@
 <template>
   <div class="container">
-    <containerForm
-      v-if="showContainerForm"
-      @showContainerForm="showContainerForm = $event"
+    <containerNewForm
+      v-if="showContainerNewForm"
+      @showContainerNewForm="showContainerNewForm = $event"
       @showContainerList="showContainerList = $event">
-    </containerForm>
+    </containerNewForm>
+  </div>
+  <div class="container">
+    <containerEditForm
+      :containerForEdit="containerForEdit"
+      v-if="showContainerEditForm"
+      @showContainerEditForm="showContainerEditForm = $event"
+      @showContainerList="showContainerList = $event">
+    </containerEditForm>
   </div>
   <div class="container" v-if="showContainerList && loaded">
     <div class="row">
@@ -24,6 +32,7 @@
               <th scope="col">Name</th>
               <th scope="col"># Items</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -37,7 +46,23 @@
                     class="btn btn-primary btn-sm"
                     @click="handleViewButton(container.id)">
                     View Items
-                </button>
+                  </button>
+                </div>
+              </td>
+              <td>
+                <div class="btn-group" role="group">
+                  <button
+                    type="button"
+                    class="btn btn-warning btn-sm"
+                    @click="handleEditButton(container)">
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-sm"
+                    @click="handleDeleteButton(container.id)">
+                    Delete
+                  </button>
                 </div>
               </td>
             </tr>
@@ -51,13 +76,16 @@
 <script>
 import axios from 'axios';
 import Alert from './Alert.vue';
-import ContainerForm from './ContainerForm.vue';
+import ContainerNewForm from './ContainerNewForm.vue';
+import ContainerEditForm from './ContainerEditForm.vue';
 
 export default {
   data() {
     return {
       containers: [],
-      showContainerForm: false,
+      showContainerNewForm: false,
+      showContainerEditForm: false,
+      containerForEdit: null,
       showContainerList: true,
       message: '',
       showMessage: false,
@@ -66,7 +94,8 @@ export default {
   },
   components: {
     alert: Alert,
-    containerForm: ContainerForm,
+    containerNewForm: ContainerNewForm,
+    containerEditForm: ContainerEditForm,
   },
   methods: {
     getContainers() {
@@ -81,7 +110,7 @@ export default {
         });
     },
     handleNewButton() {
-      this.showContainerForm = true;
+      this.showContainerNewForm = true;
       this.showContainerList = false;
     },
     handleMessage(message) {
@@ -93,6 +122,27 @@ export default {
     },
     handleViewButton(containerID) {
       this.$router.push({name: 'ContainerItems', params: {containerID: containerID}});
+    },
+    handleDeleteButton(containerID) {
+      this.removeContainer(containerID);
+    },
+    removeContainer(containerID) {
+      const path = `http://localhost:5001/containers/${containerID}`;
+      axios.delete(path)
+        .then(() => {
+          this.getContainers();
+          this.handleMessage('Container deleted');
+        })
+        .catch((error) => {
+          console.error(error);
+          this.getContainers();
+        });
+    },
+    handleEditButton(container) {
+      this.showContainerEditForm = true;
+      this.showContainerList = false;
+      this.showContainerNewForm = false;
+      this.containerForEdit = container;
     },
   },
   created() {
