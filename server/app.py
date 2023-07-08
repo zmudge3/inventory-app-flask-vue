@@ -64,10 +64,27 @@ def new_container():
     response_object = {'message': 'Container added'}
     return jsonify(response_object)
 
-@app.route('/containers/<container_id>', methods=['GET'])
+@app.route('/containers/<container_id>', methods=['GET', 'DELETE', 'PUT'])
 def view_container(container_id):
-    container = Container.query.get_or_404(container_id)
-    return jsonify(container.serialize)
+    if request.method == 'GET':
+        container = Container.query.get_or_404(container_id)
+        return jsonify(container.serialize)
+    elif request.method == 'DELETE':
+        container_to_delete = Container.query.get_or_404(container_id)
+        db.session.delete(container_to_delete)
+        db.session.commit()
+
+        response_object = {'message': 'Container deleted'}
+        return jsonify(response_object)
+    else:
+        container_to_edit = Container.query.get(container_id)
+        put_data = request.get_json()
+        container_to_edit.name = put_data.get('name')
+        db.session.commit()
+
+        response_object = {'message': 'Container updated'}
+        return jsonify(response_object)
+
 
 @app.route('/containers/<container_id>/new_item', methods=['POST'])
 def new_item(container_id):
