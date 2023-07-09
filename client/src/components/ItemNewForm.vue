@@ -44,7 +44,7 @@ export default {
   props: ['containerID'],
   methods: {
     addItem() {
-      const path = `/containers/${this.containerID}/new_item`;
+      const path = `/api/containers/${this.containerID}/new_item`;
       const payload = {
         name: this.name,
         quantity: this.quantity,

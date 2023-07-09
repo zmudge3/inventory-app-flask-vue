@@ -99,7 +99,7 @@ export default {
   },
   methods: {
     getContainers() {
-      const path = '/containers';
+      const path = '/api/containers';
       axios.get(path)
         .then((res) => {
           this.containers = res.data.containers;
@@ -127,7 +127,7 @@ export default {
       this.removeContainer(containerID);
     },
     removeContainer(containerID) {
-      const path = `/containers/${containerID}`;
+      const path = `/api/containers/${containerID}`;
       axios.delete(path)
         .then(() => {
           this.getContainers();

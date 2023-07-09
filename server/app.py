@@ -49,12 +49,12 @@ class Item(db.Model):
         return f"<Item id={self.id}, name={self.name}>"
 
 
-@app.route('/containers', methods=['GET'])
+@app.route('/api/containers', methods=['GET'])
 def all_containers():
     containers = Container.query.order_by(Container.date_created).all()
     return jsonify({'containers': [container.serialize for container in containers]})
 
-@app.route('/containers/new', methods=['POST'])
+@app.route('/api/containers/new', methods=['POST'])
 def new_container():
     post_data = request.get_json()
     new_container = Container(name=post_data.get('name'))
@@ -64,7 +64,7 @@ def new_container():
     response_object = {'message': 'Container added'}
     return jsonify(response_object)
 
-@app.route('/containers/<container_id>', methods=['GET', 'DELETE', 'PUT'])
+@app.route('/api/containers/<container_id>', methods=['GET', 'DELETE', 'PUT'])
 def view_container(container_id):
     if request.method == 'GET':
         container = Container.query.get_or_404(container_id)
@@ -86,7 +86,7 @@ def view_container(container_id):
         return jsonify(response_object)
 
 
-@app.route('/containers/<container_id>/new_item', methods=['POST'])
+@app.route('/api/containers/<container_id>/new_item', methods=['POST'])
 def new_item(container_id):
     post_data = request.get_json()
     container = Container.query.get_or_404(container_id)
@@ -100,7 +100,7 @@ def new_item(container_id):
     response_object = {'message': 'Item added'}
     return jsonify(response_object)
 
-@app.route('/items/<item_id>', methods=['DELETE', 'PUT'])
+@app.route('/api/items/<item_id>', methods=['DELETE', 'PUT'])
 def delete_item(item_id):
     if request.method == 'DELETE':
         item_to_delete = Item.query.get_or_404(item_id)
