@@ -33,7 +33,7 @@ export default {
   props: ['containerForEdit'],
   methods: {
     editContainer() {
-      const path = `http://localhost:5001/containers/${this.containerForEdit.id}`;
+      const path = `http://localhost:5001/api/containers/${this.containerForEdit.id}`;
       const payload = {
         name: this.containerForEdit.name,
       };

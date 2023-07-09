@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     addContainer() {
-      const path = 'http://localhost:5001/containers/new';
+      const path = 'http://localhost:5001/api/containers/new';
       const payload = {
         name: this.name,
       };

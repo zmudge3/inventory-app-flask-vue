@@ -44,7 +44,7 @@ export default {
   props: ['containerID'],
   methods: {
     addItem() {
-      const path = `http://localhost:5001/containers/${this.containerID}/new_item`;
+      const path = `http://localhost:5001/api/containers/${this.containerID}/new_item`;
       const payload = {
         name: this.name,
         quantity: this.quantity,

@@ -38,7 +38,7 @@ export default {
   props: ['itemForEdit'],
   methods: {
     editItem() {
-      const path = `http://localhost:5001/items/${this.itemForEdit.id}`;
+      const path = `http://localhost:5001/api/items/${this.itemForEdit.id}`;
       const payload = {
         name: this.itemForEdit.name,
         quantity: this.itemForEdit.quantity,

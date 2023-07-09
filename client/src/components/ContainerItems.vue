@@ -98,7 +98,7 @@ export default {
   },
   methods: {
     getItems() {
-      const path = `http://localhost:5001/containers/${this.containerID}`;
+      const path = `http://localhost:5001/api/containers/${this.containerID}`;
       axios.get(path)
         .then((res) => {
           this.name = res.data.name;
@@ -128,7 +128,7 @@ export default {
       this.removeItem(item.id);
     },
     removeItem(itemID) {
-      const path = `http://localhost:5001/items/${itemID}`;
+      const path = `http://localhost:5001/api/items/${itemID}`;
       axios.delete(path)
         .then(() => {
           this.getItems();
