@@ -1,4 +1,4 @@
-# Home Inventory Manager: Demo Application using Flask + Vue.js
+# Home Inventory Manager: Demo Web Application using Flask + Vue.js
 
 ## Overview
 This simple, in-progress web app was created to demonstrate my use of different technologies (see [Technologies Used](#technologies-used) for a list). Currently, the app supports simple create, read, update, and delete (CRUD) operations for home inventory management.
