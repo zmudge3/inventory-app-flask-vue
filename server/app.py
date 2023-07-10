@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db.init_app(app)
 
 # enable CORS
-CORS(app, resources={r'/*': {'origins': '*'}})
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 class Container(db.Model):
     id = db.Column(db.Integer, primary_key=True)
