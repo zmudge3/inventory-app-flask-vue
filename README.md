@@ -1,5 +1,7 @@
 # Home Inventory Manager: Demo Web Application using Flask + Vue.js
 
+<span style="color:red">A newer version of this web app is available [here](https://github.com/zmudge3/inventory-app-rails-vue).</span>
+
 ## Overview
 This simple, in-progress web app was created to demonstrate my use of different technologies (see [Technologies Used](#technologies-used) for a list). Currently, the app supports simple create, read, update, and delete (CRUD) operations for home inventory management.
 
@@ -7,20 +9,20 @@ The app is deployed to Heroku: https://frozen-thicket-91775-b71b8edc12a2.herokua
 
 ## Technologies Used
 ### Front end
-- [Vue.js](https://vuejs.org/)
+- Vue.js
 - [Vite](https://vitejs.dev/)
-- [Bootstrap](https://getbootstrap.com/)
+- Bootstrap
 ### Back end
-- [Flask (Python)](https://flask.palletsprojects.com/en/2.3.x/)
+- Flask (Python)
 - [CORS (cross-origin resource sharing)](https://flask-cors.readthedocs.io/en/latest/)
 - [SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/)
-- [SQLite](https://www.sqlite.org/index.html)
+- SQLite
 ### Containerization / deployment
-- [Heroku](https://www.heroku.com/)
-- [Docker](https://www.docker.com/)
+- Heroku
+- Docker
 - Shell scripting
 ### Package management
-- [npm](https://www.npmjs.com/)
-- [conda](https://docs.conda.io/en/latest/)
+- npm
+- conda
 ### Version Control
-- [git](https://git-scm.com/)
+- git
