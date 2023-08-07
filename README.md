@@ -1,6 +1,6 @@
-# Home Inventory Manager: Demo Web Application using Flask + Vue.js
+## :rotating_light: A newer version of this web app is available [here](https://github.com/zmudge3/inventory-app-rails-vue):rotating_light:
 
-:rotating_light: A newer version of this web app is available [here](https://github.com/zmudge3/inventory-app-rails-vue).
+# Home Inventory Manager: Demo Web Application using Flask + Vue.js
 
 ## Overview
 This simple, in-progress web app was created to demonstrate my use of different technologies (see [Technologies Used](#technologies-used) for a list). Currently, the app supports simple create, read, update, and delete (CRUD) operations for home inventory management.
