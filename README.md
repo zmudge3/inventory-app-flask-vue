@@ -1,4 +1,4 @@
-## :rotating_light: A newer version of this web app is available [here](https://github.com/zmudge3/inventory-app-rails-vue):rotating_light:
+## :rotating_light: A newer version of this web app is available [here](https://github.com/zmudge3/inventory-app-rails-vue) :rotating_light:
 
 # Home Inventory Manager: Demo Web Application using Flask + Vue.js
 
